@@ -10,16 +10,20 @@ app.get('/', function(req, res){
 });
 
 app.get('/:modulo/:residual', function(req, res){
+  var mod = parseInt(req.params.modulo);
+  var rem = parseInt(req.params.residual);
+  if(isNaN(mod)||isNaN(rem)) return res.send(400);
   res.set('Content-Type', 'text/calendar');
+  var topic = 'Küchendienst' || req.query.topic
   var cal = ical();
   cal.setDomain('zweitag.de').setName('Küchendienst')
-  var current = moment().week() % parseInt(req.params.modulo);
+  var current = moment().week() % mod;
   var start = moment().startOf('year');
   var end = moment().add('y', 1).startOf('year');
-  for (var i=1; moment().local().week(i+1).startOf('week') <= end ; i++) {
-    if (i%req.params.modulo!=req.params.residual) continue;
-    var left = moment().local().week(i).startOf('week');
-    var right = moment().local().week(i+1).startOf('week');
+  for (var i=1; moment().week(i+1).startOf('week') <= end ; i++) {
+    if (i%mod!=rem) continue;
+    var left = moment().week(i).startOf('week');
+    var right = moment().week(i+1).startOf('week');
     if (left<start) left = start;
     if (right>end) right = end;
     cal.addEvent({
