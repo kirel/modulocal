@@ -6,7 +6,7 @@ var app = express();
 moment.lang('de'); // make monday start of week
 
 app.get('/', function(req, res){
-  req.send('Subscribe to /:modulo/:residual');
+  res.send('Subscribe to /:modulo/:residual');
 });
 
 app.get('/:modulo/:residual', function(req, res){
