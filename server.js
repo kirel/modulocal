@@ -3,7 +3,7 @@ var moment = require('moment');
 var ical = require('ical-generator');
 var app = express();
 
-moment.lang('de');
+moment.lang('de'); // make monday start of week
 
 app.get('/', function(req, res){
   req.send('Subscribe to /:modulo/:residual');
