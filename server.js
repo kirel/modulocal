@@ -6,7 +6,7 @@ var app = express();
 moment.lang('de'); // make monday start of week
 
 app.get('/', function(req, res){
-  res.send('Subscribe to /:modulo/:residual');
+  res.send('Subscribe to /:modulo/:residual?topic=topic i.e. <a href="http://modulocal.herokuapp.com/5/4?topic=Küchendienst">http://modulocal.herokuapp.com/5/4?topic=Küchendienst</a>.');
 });
 
 app.get('/:modulo/:residual', function(req, res){
@@ -14,7 +14,7 @@ app.get('/:modulo/:residual', function(req, res){
   var rem = parseInt(req.params.residual);
   if(isNaN(mod)||isNaN(rem)) return res.send(400);
   res.set('Content-Type', 'text/calendar');
-  var topic = 'My turn' || req.query.topic
+  var topic = req.query.topic || 'My turn';
   var cal = ical();
   cal.setDomain('zweitag.de').setName(topic)
   var current = moment().week() % mod;
