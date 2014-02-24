@@ -14,9 +14,9 @@ app.get('/:modulo/:residual', function(req, res){
   var rem = parseInt(req.params.residual);
   if(isNaN(mod)||isNaN(rem)) return res.send(400);
   res.set('Content-Type', 'text/calendar');
-  var topic = 'Küchendienst' || req.query.topic
+  var topic = 'My turn' || req.query.topic
   var cal = ical();
-  cal.setDomain('zweitag.de').setName('Küchendienst')
+  cal.setDomain('zweitag.de').setName(topic)
   var current = moment().week() % mod;
   var start = moment().startOf('year');
   var end = moment().add('y', 1).startOf('year');
@@ -27,7 +27,7 @@ app.get('/:modulo/:residual', function(req, res){
     if (left<start) left = start;
     if (right>end) right = end;
     cal.addEvent({
-      start: left.toDate(), end: right.toDate(), summary: 'Küchendienst'
+      start: left.toDate(), end: right.toDate(), summary: topic
     });
   }
   res.send(cal.toString().replace(/T000000/g,''));
