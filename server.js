@@ -3,10 +3,14 @@ var moment = require('moment');
 var ical = require('ical-generator');
 var app = express();
 
+app.set('views', '.')
+app.set('view engine', 'jade')
+
 moment.lang('de'); // make monday start of week
 
 app.get('/', function(req, res){
-  res.send('Subscribe to /:modulo/:residual?topic=topic i.e. <a href="http://modulocal.herokuapp.com/5/4?topic=Küchendienst">http://modulocal.herokuapp.com/5/4?topic=Küchendienst</a>.');
+  res.set('Content-Type', 'text/html; charset=utf-8');
+  res.render('index');
 });
 
 app.get('/:modulo/:residual', function(req, res){
@@ -16,7 +20,7 @@ app.get('/:modulo/:residual', function(req, res){
   res.set('Content-Type', 'text/calendar; charset=utf-8');
   var topic = req.query.topic || 'My turn';
   var cal = ical();
-  cal.setDomain('zweitag.de').setName(topic)
+  cal.setDomain('kirelabs.org').setName(topic)
   var current = moment().week() % mod;
   var start = moment().startOf('year');
   var end = moment().add('y', 1).startOf('year');
