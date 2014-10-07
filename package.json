@@ -11,8 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "~3.4.8",
-    "moment": "~2.5.1",
-    "ical-generator": "~0.1.5"
+    "ical-generator": "~0.1.5",
+    "jade": "^1.7.0",
+    "moment": "~2.5.1"
   },
   "engines": {
     "node": "0.10.x"
