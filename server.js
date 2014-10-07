@@ -13,7 +13,7 @@ app.get('/:modulo/:residual', function(req, res){
   var mod = parseInt(req.params.modulo);
   var rem = parseInt(req.params.residual);
   if(isNaN(mod)||isNaN(rem)) return res.send(400);
-  res.set('Content-Type', 'text/calendar');
+  res.set('Content-Type', 'text/calendar; charset=utf-8');
   var topic = req.query.topic || 'My turn';
   var cal = ical();
   cal.setDomain('zweitag.de').setName(topic)
